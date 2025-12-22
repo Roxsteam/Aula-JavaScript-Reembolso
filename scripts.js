@@ -105,6 +105,9 @@ expenseItem.append(expenseIcon, expenseInfo, expenseAmount, expenseRemove)
 // adiciona o item na lista
 expenseList.append(expenseItem)
 
+//limpa os dados do formulário para adicionar um novo item
+formClear ()
+
 // executa a função para atualizar os valores totais após clicar em adicionar novo item na lista
 updateTotais()
 
@@ -173,10 +176,35 @@ expenseTotal.append(symbolBRL, total)
 }
 
 
+// evento que captura o clique nos itens da lista
 
+expenseList.addEventListener("click", function (event) {
+// verificar se o elemento clicado é o ícone de remover
 
+if (event.target.classList.contains("remove-icon")){
+
+// obtendo o elemento pai da li
+const item = event.target.closest(".expense")
+
+//método que remove o item da lista
+item.remove()
+}
+
+//atualiza o valor total (somatório dos itens da lista)
+updateTotais()
+})
 
  
+// Método para limpar os campos após adicionar um item 
+
+function formClear () {
+
+    expense.value = ""
+    amount.value = ""
+    category.value = ""
+
+    expense.focus()
+}
 
 
 
