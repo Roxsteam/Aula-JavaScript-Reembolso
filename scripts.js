@@ -5,6 +5,9 @@ const amount = document.getElementById("amount")
 const expense = document.getElementById("expense")
 const category = document.getElementById("category")
 
+// seleciona os elementos da lista
+const expenseList = document.querySelector("ul")
+
 
 // pode usar o amount.oninput (mesmo função do addEventListener)
 
@@ -49,10 +52,61 @@ form.onsubmit = (event) => {
         amount: amount.value,
         created_at: new Date(),
     }
-    
-   
-    
+    expenseAdd(newExpense)
 }
+
+// criando função para adicionar um novo item ao clicar em adicionar
+function expenseAdd (newExpense) {
+
+    try {
+// cria o elemento para adicionar o item (li) na lista (ul)
+        const expenseItem = document.createElement("li")
+        expenseItem.classList.add("expense")
+// cria o ícone da categoria
+
+        const expenseIcon = document.createElement("img")
+
+// escolhe os atributos do elemento criado 
+// escolhe o ícone conforme a categoria escolhida (dinamicamente)      
+        expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+        expenseIcon.setAttribute("alt", newExpense.category_name)
+
+// cria a info da despesa
+        const expenseInfo = document.createElement("div")
+        expenseInfo.classList.add("expense-info")
+// cria o nome da despesa
+        const expenseName = document.createElement("strong")
+        expenseName.textContent = newExpense.expense
+
+// cria a categoria da despesa
+        const expenseCategory = document.createElement("span")
+        expenseCategory.textContent = newExpense.category_name
+
+// adiciona o nome e categoria na div das informações da despesa
+        expenseInfo.append(expenseName, expenseCategory)
+        
+        
+
+
+
+
+// adiciona as informações no item
+expenseItem.append(expenseIcon, expenseInfo)
+
+// adiciona o item na lista
+expenseList.append(expenseItem)
+
+
+
+    } catch (error) {
+        
+        alert("Não foi possível atualizar a lista de despesas")
+        console.log(error)
+    }
+}
+
+
+
 
 
 
